@@ -8,20 +8,31 @@ namespace Grades
 {
     class GradeBook 
     {
-        public string number;
-        List<float> grades = new List<float>();
+        public GradeBook() {
+            
+        }
+
         public void AddGrade(float grade) 
         {
-            Console.Write("Enter grade: ");
-            number = Console.ReadLine();
-
-            grades.Add(grade);
-            grades.Add(float.Parse(number));
-            grades.Add(232f);
-            foreach (var item in grades) {
-                Console.WriteLine(item);
+            if(grade >= 0 && grade <= 100) {
+                grades.Add(grade);
             }
-            Console.ReadKey();
+           
         }
+
+        public GradeStatistics ComputeStatistics() {
+            GradeStatistics stats = new GradeStatistics();
+            float sum = 0f;
+            foreach (float grade in grades) {
+                sum += grade;
+            }
+            if(sum > 0) {
+                stats.HighestGrade += sum;
+            }
+            
+            stats.AvarageGrade = sum / grades.Count;
+            return stats;
+        }
+        private List<float> grades = new List<float>();
     }
 }
